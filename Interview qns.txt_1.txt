@@ -1,0 +1,124 @@
+1.Where do you save your state file in terraform ?
+2.What is end point?
+3.Cloud Front ?
+4.Cloud formation?
+5.CICD ppipeline
+6.Whats your day to day activities?
+7.discussions regarding oracle cloud ?
+8.where do you deploy your container ?
+9.what are the services you have created using terraform?
+10.What approach is followed for migration?
+11.What happens when you accidentally deleted all your 100 servers created by terraform?
+12.How many ec2 can be created in one VPC ?
+13.How to do passwordless authentication between unix servers ?
+14.I have to create 5 jobs first 4 jobs should be deployed in unix and final job will be deployed in windows ?
+15.How to connect between windows and linux?
+16.What is the Branching mechanism followd in your company?
+17.Termination protection in terraform?
+18.How will you direct your traffic when you migrate from on prem to cloud?
+19.Whats the default configuration file for apache server?
+20.How will you handle the failover when migrating on prem app to cloud?
+21.Docker commands ?
+22.Jenkins freestyle and pipeline project difference?
+23.groovy scripts?
+24.How will the build takes place from Dev to prod?
+25.Which branch you will use ?
+26.Which branch developers will use ?
+27.How will you attach a vpc ?
+28.How can i login as a root user ?
+29.How can i login without PPK file?
+30.Docker File ?
+31.Whats the docker orchestration tool used?
+32.Whats the artifactory used and where will you store your artifacts?
+33.Where we get the certificates ?
+34.Master Slave configuration in Jenkins?
+35.Webhook ?
+
+
+1.Tell me about yourself?
+
+2.What are the roles and responsibilities in your current project?
+
+3.How to create image from the container?
+
+4.How to expose host to the customer using docker?
+
+5.Jenkins pipeline jobs process?
+
+6.Groovy script in Jenkins
+7.Master Master architecture in Linux?
+
+8.How do you trouble shooting for crash loopback pods in Docker?
+9.What is Nodeport  in k8s? How do you create it ? What is the use of it?
+
+10.I don't want to run any pods in Specific node how do I do that in k8s?
+
+11.You have a code base and application logs, how do you find and trouble shoot specific file error code?
+
+12.How to list process information?
+
+13.Jenkins parameters plugin?
+
+15.In AWS how to access website from one specific ip in public subnet?
+
+16.How to allow ip in AWS?
+17.What are the stages of pods ?
+
+18.How to use docker with Jenkins?
+
+19.How do you take backup in AWS?
+
+20.How do you create Jenkins in AWS ?
+
+
+1) Master Slave Configuration?
+
+2) How slave working?
+
+3) Jenkins are you using Stand alone or docker using?
+
+4) What Jenkins work flow?
+
+5) Types of branches?
+
+6) How do you communicate with developers?
+
+7) What is your Git work?
+
+8) What is Git Merging?what you do?
+
+9) Git merging you will do or developers time?
+
+10) Which branch you are giving for developers?
+
+11) Each developer having separate branch?
+
+12) Types of branch?
+
+13) How many plugins in maven?
+
+14) Do you have experience in Artifact ID coading?
+
+15) Maven work flow?
+
+16) What is diff b/w Free style and pipeline jobs?
+
+17) How you will give the access for testing team? Do you create separate for them or how it is?
+
+18) How can you coordinate the testing team?
+
+19) What is CI-CD?
+
+20) How can you schedule  5 jobs in Jenkins?
+
+21) How can you schedule post build the actions?
+
+22) How can you schedule the jobs?
+
+23) How can you setup and configure Jenkins?
+
+24) What is sonarqube?
+
+25) What is nexues?
+
+26) What types of applications you are working?

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)https://cheatsheet.dennyzhang.com/cheatsheet-docker-A4 -->
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <title>Docker CheatSheet – CheatSheet</title>
+
+<div id="outline-container-orgc5cf8ab" class="outline-3">
+<h3 id="orgc5cf8ab"><span class="section-number-3">1.1</span> Docker start service</h3>
+<div class="outline-text-3" id="text-1-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-left">
+<col class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Start a ubuntu test env</td>
+<td class="org-left"><code>docker run ubuntu:16.04 /bin/echo hello world</code></td>
+</tr>
+<tr>
+<td class="org-left">Start a centos test env</td>
+<td class="org-left"><code>docker run centos:centos6 /bin/echo hello world</code></td>
+</tr>
+<tr>
+<td class="org-left">Start a nginx server</td>
+<td class="org-left"><code>docker run -t -d -p 8080:80 --name nginx-test nginx</code></td>
+</tr>
+<tr>
+<td class="org-left">Start a jenkins server</td>
+<td class="org-left"><code>docker run -p 8080:8080 denny/jenkins:1.0</code></td>
+</tr>
+<tr>
+<td class="org-left">Start a nexus server</td>
+<td class="org-left"><code>docker run -d -p 8082:8081 --name nexus -v /data/nexus-data:/nexus-data sonatype/docker-nexus3</code></td>
+</tr>
+<tr>
+<td class="org-left">Start a sshd server</td>
+<td class="org-left"><code>docker run -t -d --privileged -p 5022:22 denny/sshd:latest /usr/sbin/sshd -D</code></td>
+</tr>
+<tr>
+<td class="org-left">Start a ftp server</td>
+<td class="org-left"><code>docker run -t -d -p 21:21 -p 20:20 -e USERNAME=${username} -e PASSWORD=${password} denny/proftproftpd:v1</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org03e7cc1" class="outline-3">
+<h3 id="org03e7cc1"><span class="section-number-3">1.2</span> Container Basic</h3>
+<div class="outline-text-3" id="text-1-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-left">
+<col class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Start docker container</td>
+<td class="org-left"><code>docker run -p 4000:80 imgname</code></td>
+</tr>
+<tr>
+<td class="org-left">Start docker container in detached mode</td>
+<td class="org-left"><code>docker run -d -p 4000:80 imgname</code></td>
+</tr>
+<tr>
+<td class="org-left">Start container with entrypoint changed</td>
+<td class="org-left"><code>docker run -t -d --entrypoint=/bin/sh "$docker_image"</code></td>
+</tr>
+<tr>
+<td class="org-left">Enter a running container</td>
+<td class="org-left"><code>docker exec -it &lt;container-id&gt; sh</code></td>
+</tr>
+<tr>
+<td class="org-left">Upload local file to container filesystem</td>
+<td class="org-left"><code>docker cp /tmp/foo.txt mycontainer:/foo.txt</code></td>
+</tr>
+<tr>
+<td class="org-left">Download container file local filesystem</td>
+<td class="org-left"><code>docker cp mycontainer:/foo.txt /tmp/foo.txt</code></td>
+</tr>
+<tr>
+<td class="org-left">Stop container</td>
+<td class="org-left"><code>docker stop &lt;hash&gt;</code></td>
+</tr>
+<tr>
+<td class="org-left">Remove container</td>
+<td class="org-left"><code>docker rm &lt;hash&gt;</code></td>
+</tr>
+<tr>
+<td class="org-left">Remove all containers</td>
+<td class="org-left"><code>docker rm $(docker ps -a -q)</code></td>
+</tr>
+<tr>
+<td class="org-left">Force shutdown of one given container</td>
+<td class="org-left"><code>docker kill &lt;hash&gt;</code></td>
+</tr>
+<tr>
+<td class="org-left">Login to docker hub</td>
+<td class="org-left"><code>docker login</code></td>
+</tr>
+<tr>
+<td class="org-left">Tag &lt;image&gt;</td>
+<td class="org-left"><code>docker tag &lt;image&gt; username/repo:tag</code></td>
+</tr>
+<tr>
+<td class="org-left">Docker push a tagged image to repo</td>
+<td class="org-left"><code>docker push username/repo:tag</code></td>
+</tr>
+<tr>
+<td class="org-left">Run image from a given tag</td>
+<td class="org-left"><code>docker run username/repo:tag</code></td>
+</tr>
+<tr>
+<td class="org-left">Create docker image</td>
+<td class="org-left"><code>docker build -t denny/image:test .</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="outline-container-org507f484" class="outline-3">
+<h3 id="org507f484"><span class="section-number-3">1.3</span> Docker Cleanup</h3>
+<div class="outline-text-3" id="text-1-4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-left">
+<col class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Delete all containers</td>
+<td class="org-left"><a href="https://github.com/dennyzhang/cheatsheet-docker-A4/blob/master/delete-all-containers.sh#L13">delete-all-containers.sh</a></td>
+</tr>
+<tr>
+<td class="org-left">Remove unused docker images</td>
+<td class="org-left"><a href="https://github.com/dennyzhang/cheatsheet-docker-A4/blob/master/delete-unused-images.sh">delete-unused-images.sh</a></td>
+</tr>
+<tr>
+<td class="org-left">Remove the specified image</td>
+<td class="org-left"><code>docker rmi &lt;imagename&gt;</code></td>
+</tr>
+<tr>
+<td class="org-left">Remove all docker images</td>
+<td class="org-left"><code>docker rmi $(docker images -q)</code></td>
+</tr>
+<tr>
+<td class="org-left">Remove orphaned docker volumes</td>
+<td class="org-left"><code>docker volume rm $(docker volume ls -qf dangling=true)</code></td>
+</tr>
+<tr>
+<td class="org-left">Remove dead containers</td>
+<td class="org-left"><code>docker rm $(docker ps --filter status=dead -qa)</code></td>
+</tr>
+<tr>
+<td class="org-left">Remove exited containers</td>
+<td class="org-left"><code>docker rm $(docker ps --filter status=exited -qa)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orge665a44" class="outline-3">
+<h3 id="orge665a44"><span class="section-number-3">1.4</span> Dockerfile</h3>
+<div class="outline-text-3" id="text-1-5">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-left">
+<col class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Change entrypoint to run nothing</td>
+<td class="org-left"><code>entrypoint: ["tail", "-f", "/dev/null"]</code></td>
+</tr>
+<tr>
+<td class="org-left"><a href="https://serverfault.com/questions/683605/docker-container-time-timezone-will-not-reflect-changes/683651#683651">Set timezone in Dockerfile</a></td>
+<td class="org-left"><code>RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime &amp;&amp; echo $TZ &gt; /etc/timezone</code></td>
+</tr>
+<tr>
+<td class="org-left">Define multiple line command</td>
+<td class="org-left"><a href="https://github.com/dennyzhang/cheatsheet-docker-A4/blob/master/Dockerfile-example-multiline">Dockerfile-example-multiline</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orgd04b30e" class="outline-3">
+<h3 id="orgd04b30e"><span class="section-number-3">1.5</span> Docker Compose</h3>
+<div class="outline-text-3" id="text-1-6">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-left">
+<col class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Change restart policy</td>
+<td class="org-left"><code>restart: always</code>, <a href="https://docs.docker.com/compose/compose-file/#restart_policy">Link: Compose file version 3 reference</a></td>
+</tr>
+<tr>
+<td class="org-left">Mount file as volume</td>
+<td class="org-left"><code>$PWD/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro</code> <a href="https://github.com/dennyzhang/cheatsheet-docker-A4/blob/master/samples/mount-file.yml">samples/mount-file.yml</a></td>
+</tr>
+<tr>
+<td class="org-left">Start compose env</td>
+<td class="org-left"><code>docker-compose up</code>, <code>docker-compose up -d</code></td>
+</tr>
+<tr>
+<td class="org-left">Stop compose env</td>
+<td class="org-left"><code>docker-compose down</code>, <code>docker-compose down -v</code></td>
+</tr>
+<tr>
+<td class="org-left">Check logs</td>
+<td class="org-left"><code>docker-compose logs</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org66bbc00" class="outline-3">
+<h3 id="org66bbc00"><span class="section-number-3">1.6</span> Docker Containers</h3>
+<div class="outline-text-3" id="text-1-7">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-left">
+<col class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Start docker container</td>
+<td class="org-left"><code>docker run -p 4000:80 &lt;imgname&gt;</code></td>
+</tr>
+<tr>
+<td class="org-left">Start docker container in detached mode</td>
+<td class="org-left"><code>docker run -d -p 4000:80 imgname</code></td>
+</tr>
+<tr>
+<td class="org-left">Start docker container and remove when exit</td>
+<td class="org-left"><code>docker run -rm -it &lt;imgname&gt; sh</code></td>
+</tr>
+<tr>
+<td class="org-left">Enter a running container</td>
+<td class="org-left"><code>docker exec -it [container-id] sh</code></td>
+</tr>
+<tr>
+<td class="org-left">Stop container</td>
+<td class="org-left"><code>docker stop &lt;hash&gt;</code></td>
+</tr>
+<tr>
+<td class="org-left">List all containers</td>
+<td class="org-left"><code>docker ps</code>, <code>docker ps -a</code></td>
+</tr>
+<tr>
+<td class="org-left">Remove container</td>
+<td class="org-left"><code>docker rm &lt;hash&gt;</code>, <code>docker rm $(docker ps -a -q)</code></td>
+</tr>
+<tr>
+<td class="org-left">Force shutdown of one given container</td>
+<td class="org-left"><code>docker kill &lt;hash&gt;</code></td>
+</tr>
+<tr>
+<td class="org-left">Login to docker hub</td>
+<td class="org-left"><code>docker login</code></td>
+</tr>
+<tr>
+<td class="org-left">Run image from a given tag</td>
+<td class="org-left"><code>docker run username/repo:tag</code></td>
+</tr>
+<tr>
+<td class="org-left">Tail container logs</td>
+<td class="org-left"><code>docker logs --tail 5 $container_name</code></td>
+</tr>
+<tr>
+<td class="org-left">Check container healthcheck status</td>
+<td class="org-left"><code>docker inspect --format '{{.State.Health}}' $container_name</code></td>
+</tr>
+<tr>
+<td class="org-left">List containers by labels</td>
+<td class="org-left"><code>docker ps --filter "label=org.label-schema.group"</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orgb083235" class="outline-3">
+<h3 id="orgb083235"><span class="section-number-3">1.7</span> Docker Images</h3>
+<div class="outline-text-3" id="text-1-8">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-left">
+<col class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">List all images</td>
+<td class="org-left"><code>docker images</code>, <code>docker images -a</code></td>
+</tr>
+<tr>
+<td class="org-left">Create docker image</td>
+<td class="org-left"><code>docker build -t denny/image:&lt;tag&gt; .</code></td>
+</tr>
+<tr>
+<td class="org-left">Docker push a tagged image to repo</td>
+<td class="org-left"><code>docker push denny/image:&lt;tag&gt;</code></td>
+</tr>
+<tr>
+<td class="org-left">Show the history of an image</td>
+<td class="org-left"><code>docker history &lt;image_name&gt;</code></td>
+</tr>
+<tr>
+<td class="org-left">Export image to file</td>
+<td class="org-left"><code>docker save &lt;image_name&gt; &gt; my_img.tar</code></td>
+</tr>
+<tr>
+<td class="org-left">Load image to local registry</td>
+<td class="org-left"><code>docker load -i my_img.tar</code></td>
+</tr>
+<tr>
+<td class="org-left">Tag &lt;image&gt;</td>
+<td class="org-left"><code>docker tag &lt;image&gt; username/repo:tag</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org9568b45" class="outline-3">
+<h3 id="org9568b45"><span class="section-number-3">1.8</span> Docker Socket file</h3>
+<div class="outline-text-3" id="text-1-9">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-left">
+<col class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Run container mounting socket file</td>
+<td class="org-left"><code>docker run -v /var/run/docker.sock:/var/run/docker.sock -it alpine sh</code></td>
+</tr>
+<tr>
+<td class="org-left">A different docker socket file</td>
+<td class="org-left"><code>export DOCKER_HOST=unix:///my/docker.sock</code></td>
+</tr>
+<tr>
+<td class="org-left">List containers</td>
+<td class="org-left"><code>curl -XGET --unix-socket /var/run/docker.sock http://localhost/containers/json</code></td>
+</tr>
+<tr>
+<td class="org-left">Stop container</td>
+<td class="org-left"><code>curl -XPOST --unix-socket /var/run/docker.sock http://localhost/containers/&lt;container_id&gt;/stop</code></td>
+</tr>
+<tr>
+<td class="org-left">Start container</td>
+<td class="org-left"><code>curl -XPOST --unix-socket /var/run/docker.sock http://localhost/containers/&lt;container_id&gt;/start</code></td>
+</tr>
+<tr>
+<td class="org-left">List events</td>
+<td class="org-left"><code>curl --unix-socket /var/run/docker.sock http://localhost/events</code></td>
+</tr>
+<tr>
+<td class="org-left">Create container</td>
+<td class="org-left"><code>curl -XPOST --unix-socket /var/run/docker.sock -d '{"Image":"nginx:alpine"}' -H 'Content-Type: application/json' http://localhost/containers/create</code></td>
+</tr>
+<tr>
+<td class="org-left">Links</td>
+<td class="org-left"><a href="https://docs.docker.com/develop/sdk/">Link: Develop with Docker Engine SDKs and API</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="outline-container-orga450a30" class="outline-3">
+<h3 id="orga450a30"><span class="section-number-3">1.9</span> Docker Conf</h3>
+<div class="outline-text-3" id="text-1-10">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-left">
+<col class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Docker files</td>
+<td class="org-left"><code>/var/lib/docker</code>, <code>/var/lib/docker/devicemapper/mnt</code></td>
+</tr>
+<tr>
+<td class="org-left">Docker for Mac</td>
+<td class="org-left"><code>~/Library/Containers/com.docker.docker/Data/</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org8701d3a" class="outline-3">
+<h3 id="org8701d3a"><span class="section-number-3">1.10</span> Ubuntu docker: Install missing packages</h3>
+<div class="outline-text-3" id="text-1-11">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-left">
+<col class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Pull ubuntu docker image</td>
+<td class="org-left"><code>docker pull ubuntu</code></td>
+</tr>
+<tr>
+<td class="org-left">man: command not found</td>
+<td class="org-left"><code>apt-get update</code>, <code>apt-get install man</code></td>
+</tr>
+<tr>
+<td class="org-left">ping: command not found</td>
+<td class="org-left"><code>apt-get update</code>, <code>apt-get install iputils-ping</code></td>
+</tr>
+<tr>
+<td class="org-left">dig: command not found</td>
+<td class="org-left"><code>apt-get install dnsutils</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orged54d39" class="outline-3">
+<h3 id="orged54d39"><span class="section-number-3">1.11</span> Check Status</h3>
+<div class="outline-text-3" id="text-1-12">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup>
+<col class="org-left">
+<col class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Tail container logs</td>
+<td class="org-left"><code>docker logs --tail 5 $container_name</code></td>
+</tr>
+<tr>
+<td class="org-left">Check container healthcheck status</td>
+<td class="org-left"><code>docker inspect --format '{{.State.Health}}' $container_name</code></td>
+</tr>
+<tr>
+<td class="org-left">List containers</td>
+<td class="org-left"><code>docker ps</code></td>
+</tr>
+<tr>
+<td class="org-left">List all containers</td>
+<td class="org-left"><code>docker ps -a</code></td>
+</tr>
+<tr>
+<td class="org-left">List containers by labels</td>
+<td class="org-left"><code>docker ps --filter "label=org.label-schema.group"</code></td>
+</tr>
+<tr>
+<td class="org-left">List all images</td>
+<td class="org-left"><code>docker images -a</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org3569c87" class="outline-3">
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orgf0d1e7a" class="outline-3">
+  <iframe id="google_osd_static_frame_1070289807653" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./Docker CheatSheet – CheatSheet_files/saved_resource(4).html"></iframe></body><iframe id="google_shimpl" style="display: none;" src="./Docker CheatSheet – CheatSheet_files/saved_resource(5).html"></iframe><iframe id="google_esf" name="google_esf" src="./Docker CheatSheet – CheatSheet_files/zrt_lookup.html" data-ad-client="ca-pub-5389711597208884" style="display: none;"></iframe></html>

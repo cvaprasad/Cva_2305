@@ -1,0 +1,140 @@
+
+Docker networking:
+Container Network Model(CNM), is the standardizes the steps required to provide networking for containers using multiple network drivers.
+CNM IS based on Libnetwork is an open source Docker library which implements all of the key concepts that make up the CNM. 
+A CNM has mainly built on 5 objects: 
+ Network Controller
+ Driver
+ Network
+ Endpoint
+ Sandbox.
+1)Network Controller 
+
+When we install docker, Docker take care of networking, Therefore containers communicate with each other and with docker host too.
+We can see docker ethernet adapter too as part of docker installation, can see by hitting 
+$sudo ifconfig
+
+
+Three types of networks default can have post installation of docker package as below
+1. bridge
+2. host
+3. none
+
+can see above networks by default by firing as below
+$sudo docker network ls
+
+When created container in docker host, by default it sit in bridge netwrork.
+bridge network can be also called as "docker0" network exist in all docker installations
+the Docker daemon connects containers to this network by default
+When created network, as part of that subnet & gateway will be created( we don't create separately)
+Bridge Networking: It is also called as Single host networking, Useful for local development. All containers on this bridge communicate each other. The bridge is private network restricted to single docker host
+
+
+To know the info and details of docke. Fire as below
+$ docker network inspect bridge
+
+we take up scenario, where we created 2 containers as below 
+docker run -itd --name=WC1 ubuntu
+docker run -itd --name=WC2 ubuntu
+
+In the aove created 2 containers will be sitting on bridge(default0) network. Each container will be having diff ip, can find as below
+$ docker network inspect bridge
+
+Containers sitting on  default bridge network can communicate with each other by IP address.
+Docker does not support automatic service discovery on the default bridge network. 
+If you want containers to be able to resolve IP addresses by container name, you should use user-defined networks instead
+
+Note: It is always recommend to use user-defined bridge networks to control which containers can communicate with each other, It gives the feature of enabling automatic DNS resolution of container names to IP addresses.
+
+
+if youwanna keep isolated environment , we should configure  (Not existing ones)
+User-defined bridges provide better isolation and interoperability between containerized applications.
+Containers connected to the same user-defined bridge network automatically expose all ports to each other, and no ports to the outside world. This allows containerized applications to communicate with each other easily, without accidentally opening access to the outside world.
+
+Imagine an application with a web front-end and a database back-end. The outside world needs access to the web front-end (perhaps on port 80), but only the back-end itself needs access to the database host and port. Using a user-defined bridge, only the web port needs to be opened, and the database application doesn’t need any ports open, since the web front-end can reach it over the user-defined bridge.
+
+Note:Containers on the default bridge network can only access each other by IP addresses
+
+Creation of conainer with needed network combination:
+Containers can be attached and detached from user-defined networks on the fly.
+During a container’s lifetime, you can attach or detach it from user-defined networks on the fly. To remove a container from the default bridge network, you need to stop the container and recreate it with different network options.
+
+$docker run --name contName -itd --net networkName ImageName options(bash)
+
+
+2)  The Overlay Network: 
+
+When we wanna make communication b/w multiple docker hosts, we go with overlay network.
+The overlay network driver creates a distributed network among multiple Docker daemon hosts.
+ This network sits on top of (overlays) the host-specific networks, allowing containers connected to it (including swarm service containers) to communicate securely.
+Docker transparently handles routing of each packet to/from the correct Docker daemon host and the correct destination container.
+
+These networks require a valid key-value store service, such as Consul & Etcd, or ZooKeeper.
+You must install and configure your key-value store service before creating your network. 
+
+$docker network create --driver bridge <mynetwrok>
+
+Open the following ports between each of your hosts:
+
+Protocol	Port	          Purpose
+udp	        4789	           data
+tcp/udp	        7946	          control
+
+
+
+When you initialize a swarm or join a Docker host to an existing swarm, two new networks are created on that Docker host:
+
+a) An overlay network called ingress, which handles control and data traffic related to swarm services. When you create a swarm service and do not connect it to a    user-defined overlay network, it connects to the ingress network by default.
+b) A bridge network called docker_gwbridge, which connects the individual Docker daemon to the other daemons participating in the swarm.
+
+
+We create user-defined overlay networks using docker network create, as below
+
+To create an overlay network for use with swarm services..
+$docker network create -d overlay my-overlay
+
+To create an overlay network which can be used by swarm services or standalone containers to communicate with other standalone containers running on other Docker daemons, add the --attachable flag:
+$ docker network create -d overlay --attachable my-attachable-overlay
+
+
+3) Macvlan Network: 
+Some applications, especially legacy applications or applications which monitor network traffic, expect to be directly connected to the physical network. In this type of situation, you can use the macvlan network driver to assign a MAC address to each container’s virtual network interface, making it appear to be a physical network interface directly connected to the physical network
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+To create customised network rather default bridge. 
+$docker network create --driver bridge <mynetwrok> 
+Ex: docker network create --driver <driver> <my_network>
+drivername - This is the name used for the network driver.
+My_network - This is the name given to the network.
+
+To list the networks exist in the box
+$docker network ls
+
+To get the clear info about the network, hit as below(json format)
+$docker network inspect <netwrokname>
+
+To assign the container to specific network, hit as below
+$docker run --name=contName -d -it --net=networkName ImageName options(bash/ksh)
+
+docker network connect netwrokName ContainerName
+docker attach container name
+docker exec -it containerName options
+docker network disconnect networkName containerName
+
+docker network rm networkName
+docker network prune
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+
+
+
+
+
+
+
+
+  

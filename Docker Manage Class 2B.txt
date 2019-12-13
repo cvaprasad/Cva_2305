@@ -1,0 +1,101 @@
+Docker Hub -pull-> Docker Image -run-> container -exec-> Inside Contaner -commit-> New Image
+
+
+Docker Version
+$docker --version
+
+To pull an Image from DockerHub
+$docker pull <ImageName>
+Ex: $docker pull ubuntu
+
+To know the existing images in box:
+$docker images
+
+To run this images exisitg in box
+$docker run -it -d <imagename> bash
+
+i -interactive 
+t - tty mode
+d - daemon (run at background)
+bash - Terminal which we are working on 
+
+
+To view running containers in the box
+$docker ps
+
+To view all containers in the box (Running & stopped)
+$docker ps -a
+
+
+To get inside container and operate do as below
+$docker exec -it <container Id>  bash
+
+Note: Here bash is nothing but to work inside as bash terminal
+      Inside container, you can operate like normal VM with operating System, Like install packages Apache,My Sql, Deploy apps etc...
+      Bare minimum Libraries which are required to acts as Opearating System will be in Docker container
+      Very Imp: Whatever changes done in this container will be in this container only .. will not reflect any where else
+
+To come out from inside container 
+$exit
+
+To Stop Docker container
+$docker stop <Container Id>
+
+
+To kill container 
+$dcoker kill <Container Id>
+
+To remove container from machine(Box/Server)
+$ docker rm <Container Id>
+
+To remove running Container 
+$docker rm -f <container_ID>
+
+
+To remove an image
+$docker rmi <Image-Id>
+
+
+
+
+Docker Hub: It is the repository like Git Hub, Where we store/share Docker images. Thereafter world can pull and customise as per the need
+
+URL: https://hub.docker.com
+
+
+To create new image post custmisation
+We can customise and make it as new container just by commit as below
+$docker commit <Container Id> username/ImageName
+
+Ex:$docker commit <12343445> srinivas/apache
+
+Suppose same apache image to run do as below
+
+$docker run -it -d -p 8500:80 srinivas/apache 
+                      HostPort:ContPort
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+IAM:
+Click on users
+add user
+-username
+-access type
+
+user created.
+
+attach the policy to user
+
+Once root user creates a access to another user , when the user login in with his alias id the root user will logout.
+Root account is only for giving access. 
+
+Grup:
+create a new group:
+- attach a policy
+-create group. 
+
+Two types of policies :
+Managed policies and inline policies.
+Managed -> console 
+inline -> code.
+

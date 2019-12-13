@@ -1,0 +1,71 @@
+RDS:
+Relational database  service.
+
+It is used to setup , operate and scale managed relational database in cloud, which involves multiple engine type available
+and time consuming administrative tasks.It has endpoint service.
+RDS instances and security :
+ 
+DB instance are basic building blocks of amazon RDS. They can contain multiple user created database. They are isolaated DB environment in cloud.
+
+RDS cross regiionSnap Shots:
+
+Copy of DB snapshot is stored in different aws region which provides backup for disaster requiry and even it acts as a base for migration to different region.
+RDS has multi az's deployement.
+
+Once the db is created tehe endpoint has to be available.
+After setting up the instance , we are going to create an ec2 instance.
+We have to import the sql package in the new server.
+
+"yum instaall mariadb"
+copy the end point from db
+
+"mysql -h endpoint -P 3306 -u greeen -p" -> Capital P is for port and small p is for pwd
+
+It will ask for pwd. enter the pwd.
+
+"show database;"
+
+
+
+Dynamo DB:
+
+it is a no sql database but helps you to create table, input the rersources ,scan and query the particular resources which u required as output.
+
+It is a fully managed no SQL database, That provides fast and predictable perfomance with seamleass scalability
+
+It allows you to create database table that can store and retrive aany amunt of data and serve any level of request traffic.
+
+It is a flexible data  model in all gaming apps. 
+
+For creating a table we will use read and write capacity units.
+
+READ Capacity Units:
+RC represents one strongly consistent read per seconnd.
+The total available capacity is 4kb in size.
+
+Write Capacity:
+
+WC represents one write per second and round off to the next 1 kb in size.
+
+
+Scan:
+1.Incase of data retrival, Scan operation reads every item in the table or secondsry index.
+2.by default it executes all the items in the table
+3.You can use projection expression parameter to scan some of the tributes.
+4.It find items based on primary key value.
+5.defaultly it contains consistent read parameter to be set to true.
+6.Filter expression applies after the scan finishes 
+
+Querry:
+1.you an query any table that has a partition key or sort key.
+2.defaultly it contains consistent read parameter to be set to true or false
+filter expression is applied to get the particular resources from th table.
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,9 @@
+1.How to create multiple user dor the same machine ?
+2.How to give the user the option to reset pwd ?
+3.How to use create a normal pwd in linux machine ?
+4.If suppose i have a new user for whom i have to grant access to the machine , how can i give that and what type 
+permissions i give and how to change the pernissions?
+5.We have only one web server installed in linux machine so when we search with IP that on web server came?
+What if more than one server is install/ed ?
+6.At what path the server is installed ?
+7.How to launch too many mapplications in that machine ?

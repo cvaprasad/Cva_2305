@@ -1,0 +1,41 @@
+
+Amazon S3:
+
+Simple storage service.
+It is a cloud storage which allows you to use the server or app without any need to attach to server. I e kind of invisible storage
+
+Storage will be mirrored and copied to two dif data centres or in different zone to provide secured access(R-W-X) permission to the users.
+General URL: http://Bucket-s3.amazon.aws.com
+
+If it’s a region specific:
+
+http://bucket.s3-awsregion.Amazon.aws.com
+s3 has wide variety of property, Mainly we will use versioning and static website hosting which enables you to have a history of files to save it in your database. 
+
+Bucket name must be minimum 3 character and not more that 64 character.
+Name must be unique and bucket name should not be started with upper case letter.
+Bucket name can contain lower case letter , numbers and hifen.
+Maximum 100 buckets can be created per user.
+You cannot transfer ownership of the bucket.
+Yu can store unlimited number of objects in s3 bucket.
+You cannot create bucket within another bucket.
+S3 storage classes(Life cycle management):
+*S3 standard access
+*S3 standard infrequent access
+*Reduced redundancy storage
+*Amazon Glacier
+
+Standard frequent access:
+
+It stores frequently accessed data with high availability and durability.
+It has the property of low latency and high throughput.(Eg Mobile apps)
+
+
+Standard infrequent access:
+It is designed for objects that are accessed less frequently with the rapid demand access for low cost per GB retrieval file.
+
+Reduced redundancy storage:
+Non critical data at lower cost, designed for object that are reproductive.
+
+Amazon glacier:
+Designed for archiving, rarely accessed data with longer retrieval time and low cost availability. It is also called secured wallet locker.

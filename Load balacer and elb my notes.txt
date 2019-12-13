@@ -1,0 +1,82 @@
+3 types of load balaancers:
+-> Network load balacer(Works on layer 4 of 7 layers of OSI)
+-> Application: It reads the URL and sends the request to corresponding application.(works on layer 7 of 7layers of OSI)
+-> Classic : It doesnt read the IP . It directly sends the request to the IP and port(works on layer 4)
+
+Practicals:
+
+Step 1: Create an AMI(While creating an AMI we shoud clicck on NO reboot checkbox)
+Step 2: Create an empty load balancer
+step 3: using autoscaaling group add an instance to your load balancer
+		a.choose a template for your instance which needs to be added to your load balancer
+		b.decide about your autoscaling like how many counts and when to increase.
+step 4: Monitor your instance using cloud watch.
+step 5: Set an alrm in cloud watch when to increase and when to decrease.
+step 6: Increase the load using online perfomance tool or using stress test(loadimpact)
+	(top command is usedx to find the cpu utiization)
+step 7: check autoscaling is working or not.
+
+
+
+Auto scaling group:
+
+2 steps are there 
+-> create launch configuratin 
+	here in RT will use our AMI's 
+	
+-> create autoscaling group
+	start with : minimum no of instances
+-> autoscaling group
+
+For load balancing, We have to have the servers at different zones.
+steps:
+
+1. create instance 1
+2. create Instance 2
+3.login to instance 1.
+3. install the default package 
+	yum install httpd -y
+	service httpd start
+	cd /var/www/html
+	vi index.html
+ 	esc+:+wq
+4. repeat the same steps for instance 2.
+5 Go to load balancer
+    Three types are there 
+	1.application:used only by developer.
+	2.Network: Networking people
+	3.classic:
+	
+6. Define load balancer, assign security group(http ), configure security group,give the input for healthyunhealthu ping port etc
+7.All the DNS name will be configured in alias record.
+
+1. stop the servers
+2. create image of 1 server and terminate tht also.
+3.create a load balancer for trail create an empty load balancer and dont add any servers.
+4. Now we have to autoscale 
+	step1: lauch configuration
+	step2:We have the machine in ami
+	step3:give the name of launch configuration and security group
+	step4:create autoscaling group and add the availability zones
+	step5:click on advanved settings and configure your load balancer.
+	step6:now scaling policies where we can give the number of innstances
+	step7: Add alarm.
+	step8:acongiure the add and reove properties.
+	step9:Create autoscaling group.
+	step10:now we have two ec2 instances running as per our configurtion
+	step11:If we delete any one of s=server manually we will be created with a new server automatically.
+
+Note:for deleting ami you have to deregister it and then you have to go to snapshot and delete that.
+
+
+
+task 1:
+When i hit the dns name first instance should come and when i hot nxt it should go to secon instance.
+
+How to increase the memory or ram of an instance in 15 mints
+
+How to copy the ami from one region to another region
+
+How to reduce the volume ?
+
+How to attach the volume created in 1a region to an instance in 1b region ?

@@ -1,0 +1,28 @@
+linjen
+13.234.231.18
+
+
+install java
+============
+yum update
+sudo yum install java-1.8.0-openjdk-devel
+java -version
+
+Install Jenkins
+===============
+
+    1  yum update
+    2  sudo yum install java-11-openjdk-devel
+    3* sudo yum-repository ppa:/webupd8team/javasudo yum install java-1.8.0-openjdk-devel
+    4  sudo yum install java-1.8.0-openjdk-devel
+    5  java -version
+    6  curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
+    7  sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+    8  yum install jenkins
+    9  systemctl start jenkins
+   10  systemctl status jenkins
+   11  systemctl enable jenkins
+   12  cat /var/lib/jenkins/secrets/initialAdminPassword
+   13 default configuration path : /sbin/chkconfig 
+
+

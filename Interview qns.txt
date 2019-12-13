@@ -1,0 +1,31 @@
+?? AWS_TCS_screening interview questions
+
+How many websites can run in one Ec2 machine?
+How many servers in AWS?
+
+What is S3? Usage of s3?
+How many buckets can create in s3?
+
+What is EBS volume?
+ How we can connect multiple EBS volume run in one EC2 machine? 
+And How many EBS volume can connect one Ec2 machine?
+
+Which kind of EBS we need to install when database in connected to EC2 machine?
+
+Do we have version control system in s3? 
+When u will enabling that function before creating or after creating the bucket?
+
+What is the Lambda functions in AWS?
+
+What is Cloudwatch? 
+How Amazon chargers for cloudwatch? How it works?
+
+What is master in GIT and its importance? 
+What is branch in Git? 
+From where you commit the Code? 
+
+Do you know Linux administration?
+
+Do you know shell scripting?
+
+Do you know the Kafka? 
