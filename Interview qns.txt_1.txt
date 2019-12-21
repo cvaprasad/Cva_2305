@@ -1,3 +1,5 @@
+Wall Street English
+
 1.Where do you save your state file in terraform ?
 2.What is end point?
 3.Cloud Front ?
@@ -35,6 +37,29 @@
 35.Webhook ?
 
 
+Infosys
+
+1.Git mechanism
+2.What are the reasons that build will fail.
+3.Git fork, git clone
+4.How to integrate git with jenkins.
+5.What is triggers
+6.Whats the most recent issue yu faced in your ec2 and how you trouble shoot
+7.broken build
+8.Flow control
+9.Ticketing tools
+10.How will find he long running queries in RDS 
+11.Git rebase
+12.What kind of authentication you use in your company for logging in ?
+13.What is declarative pipeline ?
+14.Which language jenkins is written and will you able to  write jenkins file ?
+15.Diff bw pipeline and freestyle project ?
+16.master slave configuration in jenkins ?
+
+
+
+Progress
+
 1.Tell me about yourself?
 
 2.What are the roles and responsibilities in your current project?
@@ -46,6 +71,7 @@
 5.Jenkins pipeline jobs process?
 
 6.Groovy script in Jenkins
+
 7.Master Master architecture in Linux?
 
 8.How do you trouble shooting for crash loopback pods in Docker?
@@ -70,6 +96,8 @@
 
 20.How do you create Jenkins in AWS ?
 
+
+Dell Emc
 
 1) Master Slave Configuration?
 
@@ -122,3 +150,53 @@
 25) What is nexues?
 
 26) What types of applications you are working?
+
+
+Company name:-Dell Emc
+Process -two rounds in F2F following by managerial round along with HR round.
+Interview questions.
+Experience Level 5+
+Role they are looking for senior Devops Engineer.
+
+1.What are the roles and responsibilities that you are handled so far?
+
+2.Tell me automation part in your experience?
+
+3.CICD process?
+
+4.How to spin up dynamic slaves in Jenkins ?
+
+5.Expain your current architecture in the project?
+
+6.Tell me one architecture without containers ? And explain the benefits of this kind of architecture ? 
+How can you convince customer to use this architecture wich is not using containers?
+
+7.Explain me the samething as the above for with container architecture? And benefits?
+
+8.What are microservices?
+
+9.Docker Swram vs Kubernetes?
+
+10.What are the services you used in AWS?
+
+11. Pipeline  jobs using Jenkins?
+
+12. How to implement CICD only using AWS?
+
+13.How to integrate git with Jenkins ? 
+
+14.How do you implement trigger in Jenkins job when any change occurs in git ?
+
+15.How Sonarqube works what is the need of it ? How to integrate with Jenkins?
+
+16.How to pass test cases ? How to run tests in Jenkins ? In what stage test phase will come in the project pipeline?
+
+17.Docker with Jenkins example?
+
+18.What is CIDR in AWS? 
+
+19.Tell me how many subnets need for one product like OLA?
+
+20.Network security how do you maintain?
+
+21.Write a script for finding an average number in any scripting?
