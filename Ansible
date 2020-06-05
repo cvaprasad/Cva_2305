@@ -1,0 +1,128 @@
+ANSIBLE INSTALLATION
+
+1. Launch ec2 instance -Linux. In user data section add below mentioned script for installing  ansible with python. we are installing the ansible using pip so u wont get two files /etc/ansible/hosts and /etc/ansible/ansible.cfg file.So we have to create them manually
+2.Script to load in user data for installing ansible
+#! /bin/bash
+yum install phyton-pip -y
+pip install ansible
+
+3. Download Pageagent and load your ppk file.
+https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+
+4.In putty ssh session enable allow agent forwarding option- Otherwise while connecting to node instance you will get permission denied error
+5.Create one text file for eg slaves.txt and add node instance private IP
+
+6. Now you need ansible.cfg file and u can get it from
+https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg
+Ansible topics:
+1.Ad hoc command
+2. Play book 
+3.Roles
+Ansible adhoc command: Practice the command below with ec2-user and not with root user
+ansible all -i slaves.txt -m ping
+ansible web -i slaves.txt -m ping
+Transferring file to many servers/machines
+$ Ansible abc -m copy -a "src = /etc/yum.conf dest = /tmp/yum.conf"
+Deleting whole directory and files
+$ Ansible abc -m file -a "dest = /path/user1/new state = absent"
+For installation and management of applications
+ansible webservers -m apt -a 'name=python state=present'
+user: To add and delete users
+ansible webservers -m user -a 'name=user1 password=somepassword'
+ansible webservers -m user -a 'name=user1 state=absent' (to delete user)
+Deploy your webapp straight from git:
+$ ansible webservers -m git -a "repo=https://foo.example.org/repo.git dest=/srv/myapp version=HEAD"
+
+ansible webservers -m service -a "name=httpd state=restarted"
+ansible all -i slaves.txt --list-host
+ansible <specific ip> -i slaves.txt -a "uname -a" 
+ansible all -i slaves.txt -a "uname -a" -u ec2-user
+ansible all -i slaves.txt -a "uname -a" -u ec2-user –b
+ansible jenkins -i slaves.txt -a "grep -i JENKINS_PORT /etc/sysconfig/jenkins" -b
+
+Dynamic Inventory:
+1.You can find sample python script for dynamic inventory in this URL
+https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/ec2.py
+2.Install boto in control machine to work with dynamic inventory with the below command.
+     Pip install boto
+3. Create IAM role in AWS with full administrative access and attach role to your control machine
+ Dynamic Inventory example
+ansible all -i ec2.py -a "uname -a"
+
+Playbook example:
+1.Install visual studio code
+https://code.visualstudio.com/docs/?dv=win64user
+2. Install ansible plugins in visual studio code which will make our job easy 
+3.playbook file should be with .yaml format
+Example:
+
+- hosts: all
+    remote_user: ec2-user
+    become: yes
+
+    tasks:
+      - name: install httpd server
+        package:
+          name: httpd
+          state: present
+
+      - name: Start service httpd, if not running
+        service:
+          name: httpd
+          state: started
+
+      - template:
+          src: /home/ec2-user/index.html.j2
+          dest: /var/www/html/index.html
+
+Example 2 :
+- hosts: jenkins
+  remote_user: ec2-user
+  become: yes
+  vars:
+     jenkins_port: 9006
+  tasks: 
+    - name: jenkins installation from yum
+      yum_repository:
+        name: jenkins
+        description: jenkins
+        baseurl: http://pkg.jenkins.io/redhat
+        gpgkey:  https://jenkins-ci.org/redhat/jenkins-ci.org.key
+
+    - name : Install jenkins and Java
+      package:
+        name: "{{item}}"
+        state: present
+      loop:
+        - java
+        - jenkins
+        - httpd
+
+    - name: we are going to start the service
+      service:
+          name: jenkins # required. Name of the service.
+          enabled: yes # not required. Whether the service should start on boot. B(At least one of state and enabled are required.)
+          state: started 
+    - name: change default port number
+      lineinfile:
+          path: /etc/sysconfig/jenkins
+          regexp: '^JENKINS_PORT='
+          line: "JENKINS_PORT={{ jenkins_port }}"
+      notify:
+        - restart jenkins
+    - name: validate port change
+      command: "grep -i JENKINS_PORT /etc/sysconfig/jenkins"
+      register: grep_results
+    - name: debug grep results
+      debug: 
+        msg: "{{ hostvars['172.31.21.72'] }}"
+      when: grep_results.rc != 0
+  handlers:
+    - name: restart jenkins
+      service:
+          name: jenkins # required. Name of the service.
+          state: restarted
+Syntax to run playbook:
+ansible-playbook -i slaves.txt jenkins.yml          
+Example to pass variable in run time
+ansible-playbook -i slaves.txt jenkins.yml -e "jenkins_port=8001"
